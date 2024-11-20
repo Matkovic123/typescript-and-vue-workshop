@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import { restaurantStatusList } from '@/constants'
 import type { Restaurant } from '@/types'
-import { looseIndexOf } from '@vue/shared'
+import { v4 as uuidv4 } from 'uuid'
+import { onMounted, ref } from 'vue'
 
 const emit = defineEmits<{
   (e: 'add-new-restaurant', restaurant: Restaurant): void
@@ -19,13 +18,19 @@ const newRestaurant = ref<Restaurant>({
   website: '',
   status: 'Want to Try',
 })
-
 const addRestaurant = () => {
   emit('add-new-restaurant', newRestaurant.value)
 }
 
 const cancelNewRestaurant = () => {
   emit('cancel-new-restaurant')
+}
+
+const updateName = (event: Event) => {
+  const inputEvent = event as InputEvent
+  if (inputEvent.data == ' ') {
+    newRestaurant.value.name = (inputEvent.target as HTMLInputElement).value
+  }
 }
 
 onMounted(() => {
@@ -40,7 +45,8 @@ onMounted(() => {
         <label for="name" class="label">Name</label>
         <div class="control">
           <input
-            v-model="newRestaurant.name"
+            :value="newRestaurant.name"
+            @input="updateName"
             type="text"
             class="input is-large"
             placeholder="Beignet and the Jets"
