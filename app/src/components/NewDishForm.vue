@@ -1,17 +1,23 @@
-<script>
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { Dish } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
+import { onMounted, ref } from 'vue'
 
-export default defineComponent({
-  emits: ['add-new-dish', 'cancel-new-dish'],
-  data: () => ({
-    newDish: {
-      id: uuidv4(),
-      name: '',
-      status: 'Want to Try',
-      diet: '',
-    },
-  }),
+const emits = defineEmits<{
+  (e: 'add-new-dish', dish: Dish): void
+  (e: 'cancel-new-dish'): void
+}>()
+const newDish = ref<Dish>({
+  id: uuidv4(),
+  name: '',
+  status: 'Want to Try',
+  diet: '',
+})
+
+const elNameInput = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  elNameInput.value?.focus()
 })
 </script>
 
