@@ -1,15 +1,17 @@
-<script>
+<script lang="ts">
 import NewDishForm from '../components/NewDishForm.vue'
 import DishCard from '../components/DishCard.vue'
 import SideMenu from '../components/SideMenu.vue'
+import type { DishPageData, DishListItem } from '@/types'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: {
     NewDishForm,
     DishCard,
     SideMenu,
   },
-  data: () => ({
+  data: (): DishPageData => ({
     filterText: '',
     dishList: [
       {
@@ -45,11 +47,11 @@ export default {
     },
   },
   methods: {
-    addDish(payload) {
+    addDish(payload: DishListItem) {
       this.dishList.push(payload)
       this.hideForm()
     },
-    deleteDish(payload) {
+    deleteDish(payload: DishListItem) {
       this.dishList = this.dishList.filter((dish) => {
         return dish.id !== payload.id
       })
@@ -64,7 +66,7 @@ export default {
       this.showNewForm = true
     }
   },
-}
+})
 </script>
 
 <template>
