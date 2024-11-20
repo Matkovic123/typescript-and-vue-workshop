@@ -29,9 +29,7 @@ const cancelNewRestaurant = () => {
 }
 
 const updateName = (event: InputEvent) => {
-  if (event.data === ' ') {
-    newRestaurant.value.name = (event.target as HTMLInputElement).value
-  }
+  newRestaurant.value.name = (event.target as HTMLInputElement).value
 }
 
 onMounted(() => {
