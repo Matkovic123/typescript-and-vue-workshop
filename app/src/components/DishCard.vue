@@ -45,6 +45,7 @@ export default defineComponent({
         </p>
         <p class="subtitle mb-2">
           <span class="tag" :class="statusColor">{{ dish.status }}</span>
+          <p>Diet: {{ dish.diet }}</p>
         </p>
         <div>
           <button @click="deleteDish" class="button is-small is-danger is-light">Delete</button>
