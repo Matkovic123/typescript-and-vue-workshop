@@ -4,7 +4,7 @@ import { ref } from 'vue'
 defineProps({
   tagline: {
     type: String,
-    required: true,
+    required: false,
   },
 })
 
