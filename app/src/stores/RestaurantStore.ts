@@ -42,7 +42,6 @@ export const useRestaurantStore = defineStore('RestaurantStore', {
   actions: {
     addRestaurant(payload: Restaurant) {
       this.list.push(payload)
-      // hideForm()
     },
 
     deleteRestaurant(payload: Restaurant) {

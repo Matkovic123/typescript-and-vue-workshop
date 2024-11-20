@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useRestaurantStore } from '@/stores/RestaurantStore';
-import type { Restaurant } from '@/types';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import NewRestaurantForm from '../components/NewRestaurantForm.vue';
-import RestaurantCard from '../components/RestaurantCard.vue';
-import SideMenu from '../components/SideMenu.vue';
+import { useRestaurantStore } from '@/stores/RestaurantStore'
+import type { Restaurant } from '@/types'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import NewRestaurantForm from '../components/NewRestaurantForm.vue'
+import RestaurantCard from '../components/RestaurantCard.vue'
+import SideMenu from '../components/SideMenu.vue'
+import { storeToRefs } from 'pinia'
 
 /**
  * Restaurant Module
@@ -13,10 +14,11 @@ import SideMenu from '../components/SideMenu.vue';
 
 const restaurantStore = useRestaurantStore()
 
-const restaurantList = restaurantStore.list
+// renaming while destructuring
+const { list: restaurantList } = storeToRefs(restaurantStore)
 
 const filteredRestaurantList = computed((): Restaurant[] => {
-  return restaurantList.filter((restaurant) => {
+  return restaurantList.value.filter((restaurant: Restaurant) => {
     if (restaurant.name) {
       return restaurant.name.toLowerCase().includes(filterText.value.toLowerCase())
     } else {
