@@ -28,8 +28,8 @@ const cancelNewRestaurant = () => {
   emit('cancel-new-restaurant')
 }
 
-const updateName = (event: InputEvent) => {
-  if (event.data === ' ') {
+const updateName = (event: Event) => {
+  if ((event as InputEvent).data === ' ') {
     newRestaurant.value.name = (event.target as HTMLInputElement).value
   }
 }

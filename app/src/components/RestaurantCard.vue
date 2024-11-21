@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, defineProps, defineEmits } from 'vue'
+import { computed, defineProps, defineEmits, ref } from 'vue'
 import type { Restaurant } from '@/types'
+import EditRestaurantForm from '@/components/EditRestaurantForm.vue'
 
 type PropTypes = {
   restaurant: Restaurant
@@ -10,6 +11,7 @@ const props = defineProps<PropTypes>()
 
 const emits = defineEmits<{
   (e: 'delete-restaurant', restaurant: Restaurant): void
+  (e: 'edit-restaurant', restaurant: Restaurant): void
 }>()
 
 const statusColor = computed(() => {
@@ -25,8 +27,18 @@ const statusColor = computed(() => {
   }
 })
 
+const showEditForm = ref(false)
+
+const hideForm = () => {
+  showEditForm.value = false
+}
+
 const deleteRestaurant = () => {
   emits('delete-restaurant', props.restaurant)
+}
+
+const editRestaurant = () => {
+  showEditForm.value = true
 }
 </script>
 
@@ -46,8 +58,20 @@ const deleteRestaurant = () => {
         <div class="content mb-2">
           {{ restaurant.address }}
         </div>
-        <div>
-          <button @click="deleteRestaurant" class="button is-small is-danger is-light">Delete</button>
+        <br />
+        <div class="columns">
+          <div class="column is-1">
+            <button @click="deleteRestaurant" class="button is-small is-danger is-light">Delete</button>
+          </div>
+          <div class="column">
+            <button @click="editRestaurant" class="button is-small is-info is-light">Edit</button>
+            <EditRestaurantForm
+              :restaurant="restaurant"
+              v-if="showEditForm"
+              @edit-restaurant="editRestaurant"
+              @cancel-edit-restaurant="hideForm"
+            />
+          </div>
         </div>
       </div>
     </div>

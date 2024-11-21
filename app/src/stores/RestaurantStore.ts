@@ -1,5 +1,5 @@
-import type { Restaurant } from "@/types";
-import { defineStore } from "pinia";
+import type { Restaurant } from '@/types'
+import { defineStore } from 'pinia'
 
 type StateShape = {
   list: Restaurant[]
@@ -29,21 +29,26 @@ export const useRestaurantStore = defineStore('RestaurantStore', {
         website: 'www.penneforyourthoughts.com',
         status: 'Do Not Recommend',
       },
-    ]
+    ],
   }),
   getters: {
     numberOfRestaurants: (state): number => {
       return state.list.length
-    }
+    },
   },
   actions: {
     addRestaurant(payload: Restaurant) {
       this.list.push(payload)
     },
+    editRestaurant(payload: Restaurant) {
+      const indexOfEdit = this.list.findIndex((item) => item.id == payload.id)
+
+      this.list[indexOfEdit] = payload
+    },
     deleteRestaurant(payload: Restaurant) {
       this.list = this.list.filter((restaurant: Restaurant) => {
         return restaurant.id !== payload.id
       })
-    }
+    },
   },
 })
