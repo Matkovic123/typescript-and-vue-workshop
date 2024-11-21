@@ -10,6 +10,7 @@ const props = defineProps<PropTypes>()
 
 const emit = defineEmits<{
   (e: 'delete-dish', dish: Dish): void
+  (e: 'edit-dish', dish: Dish): void
 }>()
 
 const statusColor = computed(() => {
@@ -24,6 +25,10 @@ const statusColor = computed(() => {
       return ''
   }
 })
+
+const editDish = () => {
+  emit('edit-dish', props.dish)
+}
 
 const deleteDish = () => {
   emit('delete-dish', props.dish)
@@ -45,6 +50,7 @@ const deleteDish = () => {
         </p>
         <div>
           <button class="button is-small is-warning is-light">Edit</button>
+          <button @click="editDish" class="button is-small is-info is-light">Edit</button>
           <button @click="deleteDish" class="button is-small is-danger is-light">Delete</button>
         </div>
       </div>
